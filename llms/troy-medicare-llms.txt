@@ -1,0 +1,71 @@
+# Troy Medicare
+
+> Troy Medicare, operated by Troy Health, Inc. (Charlotte, North Carolina), is a Medicare Advantage
+> HMO and HMO D-SNP organization serving Medicare-eligible beneficiaries across 35 North Carolina
+> counties under CMS contract H4676. Founded by pharmacists and software engineers, it runs a
+> pharmacy-first chronic disease management model supported by its proprietary Troy.AI technology.
+
+Generated: 2026-08-30
+Method: generated (no /llms.txt is published by Troy Medicare; https://troymedicare.com/llms.txt returned 404 on 2026-08-30)
+Source: https://troymedicare.com plus API Evangelist probes of Troy Medicare's own hosts
+
+## What developers should know first
+
+Troy Medicare publishes **no developer program**: no developer portal, no API reference, no OpenAPI
+or other machine-readable contract, no SDKs, no CLI, no MCP server, no A2A agent card, no llms.txt,
+no changelog, no status page and no published rate limits. Every one of those was probed on
+2026-08-30 and missed. Two OAuth 2.0 / OpenID Connect authorization servers ARE served from the
+company's own hosts and are the only machine-readable surface it exposes anonymously.
+
+## Machine-readable surfaces that exist
+
+- [Provider portal OIDC discovery](https://provider.troymedicare.com/.well-known/openid-configuration): OpenID Connect discovery document for the secure provider portal (member eligibility, claim status, payment history). 35 scopes, 37 claims, PKCE, device-code, introspection, revocation, front- and back-channel logout.
+- [Provider portal JWKS](https://provider.troymedicare.com/.well-known/openid-configuration/jwks): signing keys for the provider portal issuer.
+- [FHIR host OIDC discovery](https://fhir.troymedicare.com/.well-known/openid-configuration): OAuth 2.0 authorization and token endpoints for the health plan's FHIR data surface. No scopes_supported, no SMART configuration, no CapabilityStatement is reachable anonymously.
+- [FHIR host JWKS](https://fhir.troymedicare.com/.well-known/jwk): signing keys for the FHIR issuer.
+
+## Human surfaces
+
+- [Troy Medicare](https://troymedicare.com): company home.
+- [About Troy Medicare](https://troymedicare.com/about): company history, pharmacy-first model, Troy.AI.
+- [Our Approach](https://troymedicare.com/our-approach): care delivery model.
+- [Troy Medicare (HMO)](https://troymedicare.com/troy-medicare-hmo): plan H4676-001 — $0 premium, $0 deductible, $3,950 maximum out of pocket.
+- [Troy Medicare (HMO D-SNP)](https://troymedicare.com/troy-medicare-dsnp): plan H4676-002 for dual-eligible beneficiaries.
+- [Summary of Benefits](https://troymedicare.com/summary-of-benefits): 2026 Summary of Benefits PDFs for both plans.
+- [Documents & Forms](https://troymedicare.com/documents-and-forms): EOC, formulary, ANOC, medical policies.
+- [For Providers](https://troymedicare.com/providers): prior authorization, provider contracting, secure provider portal.
+- [Prior Authorization Code Search](https://troymedicare.com/for-providers/prior-authorization-code-search): look up whether a code requires prior authorization.
+- [Find a Provider](https://troymedicare.com/find-a-provider): human provider directory search (no machine-readable directory endpoint published).
+- [For Brokers](https://troymedicare.com/for-brokers): broker resources.
+- [Compliance & Member Protections](https://troymedicare.com/compliance): CMS seven-element compliance program, FDR compliance guide, code of conduct, HIPAA policies.
+- [Your Coverage Rights](https://troymedicare.com/your-coverage-rights): member rights, appeals, grievances.
+- [Press](https://troymedicare.com/press): company news and member health content.
+- [Contact Us](https://troymedicare.com/contact-us): 1-888-494-TROY (8769), TTY 711.
+- [Terms of Use](https://troymedicare.com/terms-of-use)
+- [Privacy Policy](https://troymedicare.com/privacy-policy)
+- [Sign up for coverage](https://troymedicare.com/sign-up-for-coverage)
+
+## Portals (credentialed, not APIs)
+
+- Member self-service portal: https://selfservice.troymedicare.com
+- Provider portal: https://provider.troymedicare.com (register by emailing the provider request form to network@troymedicare.com)
+- Broker portal: https://broker.troymedicare.com
+- Troy.AI portal: https://portal.troymedicare.com
+
+## What an agent cannot do here
+
+There is no public API contract, no application-registration path, no sandbox and no documented
+scopes for the FHIR surface. Under CMS-9115-F a Medicare Advantage organization is expected to
+operate a Patient Access API and an unauthenticated Provider Directory API; neither is discoverable
+from Troy Medicare's public surface, and API Evangelist records that as unverified rather than
+asserting either way.
+
+## API Evangelist artifacts in this repository
+
+- well-known/troy-medicare-well-known.yml — /.well-known/ probe results for all seven hosts
+- authentication/troy-medicare-authentication.yml — both OAuth 2.0 / OIDC profiles
+- scopes/troy-medicare-scopes.yml — the 35 advertised provider-portal scopes
+- conformance/troy-medicare-conformance.yml — what is and is not verifiably conformant
+- plans/troy-medicare-plans-pricing.yml — no API plans; 2026 insurance product pricing
+- rate-limits/troy-medicare-rate-limits.yml — no published limits
+- security/ — domain security posture probes

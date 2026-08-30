@@ -1,23 +1,122 @@
 aid: troy-medicare
 name: Troy Medicare
-description: 'Troy Medicare is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Troy Medicare, operated by Troy Health, Inc. of Charlotte, North Carolina, is a Medicare Advantage
+  HMO and HMO D-SNP organization serving Medicare-eligible beneficiaries across 35 North Carolina
+  counties under CMS contract H4676. Founded by pharmacists and software engineers, it runs a
+  pharmacy-first chronic disease management model that places community pharmacists at the center of
+  care coordination, supported by its proprietary Troy.AI technology and by local provider
+  partnerships. Troy Medicare publishes no developer program, no API reference and no machine-readable
+  API contract; the only machine-readable surfaces it serves anonymously are two OAuth 2.0 / OpenID
+  Connect authorization servers — one in front of its secure provider portal and one in front of the
+  health plan's FHIR data surface at fhir.troymedicare.com.
+image: https://assets.website-files.com/5d8c963eace5c7685e78fa4c/5d8c9c74c9686734be86f7d2_troymedicare-logo.svg
 url: https://raw.githubusercontent.com/api-evangelist/troy-medicare/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-30'
 modified: '2026-08-30'
 tags:
-- Company
-apis: []
+- Health Insurance
+- Medicare
+- Medicare Advantage
+- Health Plans
+- Healthcare
+- Pharmacy
+- Care Management
+- Insurance
+- Identity
+- OpenID Connect
+apis:
+- aid: troy-medicare-provider-portal-identity
+  name: Troy Medicare Provider Portal Identity Service
+  description: >-
+    The OpenID Connect authorization server behind Troy Medicare's secure provider portal, which
+    contracted providers use for member eligibility verification, claim status and payment history.
+    Its discovery document is served anonymously and advertises 35 scopes, 37 claims, PKCE, the
+    device authorization grant, token introspection and revocation, and front- and back-channel
+    logout. Scope naming identifies the underlying platform as NirvanaHealth Aria, which Troy
+    Medicare announced it selected in July 2023, but the issuer and every endpoint are hosted on
+    Troy Medicare's own domain. No client registration path is published, so this is not a
+    developer-consumable API today.
+  humanURL: https://troymedicare.com/providers
+  baseURL: https://provider.troymedicare.com
+  tags:
+  - Identity
+  - OpenID Connect
+  - OAuth
+  - Provider Portal
+  properties:
+  - type: Authentication
+    url: authentication/troy-medicare-authentication.yml
+  - type: OAuthScopes
+    url: scopes/troy-medicare-scopes.yml
+  - type: OpenIDConnect
+    url: https://provider.troymedicare.com/.well-known/openid-configuration
+- aid: troy-medicare-fhir
+  name: Troy Medicare FHIR Authorization Surface
+  description: >-
+    A Troy-Medicare-branded OAuth 2.0 authorization surface at fhir.troymedicare.com, serving an
+    OpenID Connect discovery document and a JWKS anonymously, with a member username/password sign-in
+    page at the host root. It is the front door to the health plan's FHIR data access. The FHIR
+    resource base itself is not anonymously discoverable — no CapabilityStatement was returned by any
+    probed path and no SMART on FHIR configuration is served — so the FHIR release, resource set and
+    scope vocabulary are unverified rather than asserted here.
+  humanURL: https://fhir.troymedicare.com/
+  baseURL: https://fhir.troymedicare.com
+  tags:
+  - FHIR
+  - OAuth
+  - Health Data
+  - Patient Access
+  properties:
+  - type: Authentication
+    url: authentication/troy-medicare-authentication.yml
+  - type: OpenIDConnect
+    url: https://fhir.troymedicare.com/.well-known/openid-configuration
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/troy-medicare-domain-security.yml
 - type: Website
-  url: https://www.hiive.com/securities/troy-medicare-stock
+  url: https://troymedicare.com
+- type: Support
+  url: https://troymedicare.com/contact-us
+- type: Blog
+  url: https://troymedicare.com/press
+- type: TermsOfService
+  url: https://troymedicare.com/terms-of-use
+- type: PrivacyPolicy
+  url: https://troymedicare.com/privacy-policy
+- type: SignUp
+  url: https://troymedicare.com/sign-up-for-coverage
+- type: Login
+  url: https://selfservice.troymedicare.com
+- type: Pricing
+  url: https://troymedicare.com/summary-of-benefits
+- type: Compliance
+  url: https://troymedicare.com/compliance
+- type: WellKnown
+  url: well-known/troy-medicare-well-known.yml
+- type: Authentication
+  url: authentication/troy-medicare-authentication.yml
+- type: OAuthScopes
+  url: scopes/troy-medicare-scopes.yml
+- type: Conformance
+  url: conformance/troy-medicare-conformance.yml
+- type: Plans
+  url: plans/troy-medicare-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/troy-medicare-rate-limits.yml
+- type: LLMsTxt
+  url: llms/troy-medicare-llms.txt
+x-enrichment:
+  date: '2026-08-30'
+  status: enriched
+  artifacts_added: 12
+  pass: local-v1

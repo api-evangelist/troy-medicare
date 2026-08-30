@@ -1,0 +1,24 @@
+name: Troy Medicare Rate Limits
+generated: '2026-08-30'
+method: searched
+source: https://troymedicare.com/sitemap.xml
+description: >-
+  Troy Medicare publishes no API documentation, so no rate limits, quotas, throttling windows or
+  rate-limit response headers are documented anywhere on its public surface. An honest zero.
+limit_count: 0
+limits: []
+headers: []
+note: >-
+  Searched every URL in troymedicare.com/sitemap.xml (55 pages) plus the provider, member, broker,
+  portal and FHIR hosts on 2026-08-30. There is no developer portal, no API reference and no terms
+  of API use to carry limits. The two OAuth 2.0 authorization servers the company does serve
+  (provider.troymedicare.com, fhir.troymedicare.com) advertise no rate-limit policy in their
+  discovery documents, and no unauthenticated API response carrying X-RateLimit-* / RateLimit-*
+  headers was observed.
+evidence:
+- url: https://troymedicare.com/sitemap.xml
+  status: 200
+- url: https://provider.troymedicare.com/.well-known/openid-configuration
+  status: 200
+- url: https://fhir.troymedicare.com/.well-known/openid-configuration
+  status: 200

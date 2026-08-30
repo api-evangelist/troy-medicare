@@ -1,0 +1,116 @@
+name: Troy Medicare Well-Known Documents
+generated: '2026-08-30'
+method: probed
+source: >-
+  Direct HTTPS probes of every Troy Medicare host discovered from the marketing site,
+  its sitemap.xml and DNS (troymedicare.com, provider., selfservice., member., broker.,
+  portal., fhir.), 2026-08-30.
+description: >-
+  Troy Medicare (Troy Health, Inc.) publishes no /.well-known/ documents on its marketing
+  domain, but two of its application hosts serve real OpenID Connect discovery documents:
+  provider.troymedicare.com (the secure provider portal identity service, an
+  IdentityServer-style authorization server carrying 35 scopes) and fhir.troymedicare.com
+  (a Troy-branded OAuth 2.0 authorization surface fronting the health plan's FHIR data
+  access). Both were saved verbatim. Hosts that answer 200 with an HTML single-page-app
+  shell for every /.well-known/ path (broker.troymedicare.com) are recorded as
+  present-but-not-a-real-document and were NOT saved.
+hosts:
+- host: troymedicare.com
+  note: Marketing site (Lovable-built SPA). Unknown paths return a 404 with a 9-byte "Not found" body.
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: provider.troymedicare.com
+  note: Secure provider portal (member eligibility, claim status, payment history) — OIDC authorization server.
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    content_type: application/json
+    file: troy-medicare-provider-openid-configuration.json
+    real_document: true
+  - path: /.well-known/openid-configuration/jwks
+    status: 200
+    content_type: application/json
+    file: troy-medicare-provider-jwks.json
+    real_document: true
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/smart-configuration
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+- host: fhir.troymedicare.com
+  note: >-
+    Troy-branded sign-in page plus an OAuth 2.0 / OIDC discovery document. The FHIR resource
+    base is not anonymously discoverable — every CapabilityStatement path probed returned 404.
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    content_type: application/json
+    file: troy-medicare-fhir-openid-configuration.json
+    real_document: true
+  - path: /.well-known/jwk
+    status: 200
+    content_type: application/json
+    file: troy-medicare-fhir-jwk.json
+    real_document: true
+  - path: /.well-known/smart-configuration
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+- host: selfservice.troymedicare.com
+  note: Secure member self-service portal. All /.well-known/ paths return a 404 error page.
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/smart-configuration
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+- host: member.troymedicare.com
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 404
+- host: broker.troymedicare.com
+  note: Broker portal answers 200 with the SAME 2,125-byte HTML page for the site root and for every unknown path.
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    content_type: text/html
+    real_document: false
+    result: html-catchall
+    note: HTML SPA/catch-all shell, byte-identical to the site root — not a document.
+- host: portal.troymedicare.com
+  note: Troy.AI portal. Unknown paths return "404 page not found".
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+security_txt: none
+api_catalog: none
+agent_card: none

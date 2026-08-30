@@ -1,0 +1,138 @@
+name: Troy Medicare OAuth Scopes
+generated: '2026-08-30'
+method: probed
+source: https://provider.troymedicare.com/.well-known/openid-configuration (HTTP 200, fetched 2026-08-30)
+description: >-
+  The 35 scopes advertised by the Troy Medicare provider-portal authorization server's OpenID
+  Connect discovery document. Troy Medicare publishes no scope reference page, so descriptions
+  below are left empty rather than invented; only the six standard OIDC scopes and offline_access
+  carry their specification-defined meaning. The remainder are resource scopes of the underlying
+  health-plan administration platform and their semantics are not publicly documented.
+authorization_server: https://provider.troymedicare.com
+docs: none
+scope_count: 35
+scopes:
+- name: openid
+  standard: OIDC Core 1.0
+  description: Request an ID token (OpenID Connect authentication).
+- name: profile
+  standard: OIDC Core 1.0
+  description: End-user profile claims (name, family_name, given_name, picture, preferred_username, and similar).
+- name: email
+  standard: OIDC Core 1.0
+  description: email and email_verified claims.
+- name: address
+  standard: OIDC Core 1.0
+  description: address claim.
+- name: phone
+  standard: OIDC Core 1.0
+  description: phone_number and phone_number_verified claims.
+- name: offline_access
+  standard: OIDC Core 1.0
+  description: Issue a refresh token for access when the end user is not present.
+- name: role
+  description: ''
+- name: McAppUserProfile
+  description: ''
+- name: BenefitAdminResource
+  description: ''
+- name: NhCommercial
+  description: ''
+- name: IdentityManager
+  description: ''
+- name: nh_web_resource
+  description: ''
+- name: nh_pcmweb_resource
+  description: ''
+- name: CustomerService
+  description: ''
+- name: BrokerPortal
+  description: ''
+- name: MemberPortal
+  description: ''
+- name: BrokerComm
+  description: ''
+- name: Correspondence
+  description: ''
+- name: EnrFileProcess
+  description: ''
+- name: Enrollment
+  description: ''
+- name: BillingAndPayments
+  description: ''
+- name: PriorAuth
+  description: ''
+- name: AdminPortal
+  description: ''
+- name: AdministrationService
+  description: ''
+- name: AuthServer
+  description: ''
+- name: SaasService
+  description: ''
+- name: NirvanaHealth
+  description: ''
+- name: IdentityService
+  description: ''
+- name: FaxQueue
+  description: ''
+- name: NhCore
+  description: ''
+- name: DMR
+  description: ''
+- name: M3P
+  description: ''
+- name: ClaimCore
+  description: ''
+- name: ProductService
+  description: ''
+- name: MedicalPayment
+  description: ''
+claims_supported:
+- sub
+- ChildBusinessWithLob
+- MemberAuth
+- PasswordPolicy
+- birthdate
+- family_name
+- gender
+- given_name
+- locale
+- middle_name
+- ChildBusiness
+- name
+- zoneinfo
+- website
+- updated_at
+- profile
+- nickname
+- picture
+- preferred_username
+- email
+- email_verified
+- address
+- phone_number
+- phone_number_verified
+- BusinessId
+- ApplicationId
+- BusinessName
+- validation_rule
+- role
+- UserId
+- LOB
+- CapitationAdminRights
+- BusinessTrackerCode
+- CommunicationPrefrence
+- MemberId
+- PayerId
+- FaxCategories
+notes:
+- >-
+  The FHIR authorization surface at https://fhir.troymedicare.com omits scopes_supported from its
+  discovery document, so no SMART on FHIR scope vocabulary (patient/*.read and similar) could be
+  observed. It is not recorded here rather than being assumed.
+evidence:
+- url: https://provider.troymedicare.com/.well-known/openid-configuration
+  status: 200
+- url: https://fhir.troymedicare.com/.well-known/openid-configuration
+  status: 200

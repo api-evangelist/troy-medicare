@@ -64,5 +64,19 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Troy Medicare is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.hiive.com/securities/troy-medicare-stock
+Troy Medicare, operated by Troy Health, Inc. of Charlotte, North Carolina, is a Medicare Advantage
+HMO and HMO D-SNP organization serving Medicare-eligible beneficiaries across 35 North Carolina
+counties under CMS contract H4676. Founded by pharmacists and software engineers, it runs a
+pharmacy-first chronic disease management model supported by its proprietary Troy.AI technology.
+
+Troy Medicare publishes no developer program, no API reference and no machine-readable API contract.
+The only machine-readable surfaces it serves anonymously are two OAuth 2.0 / OpenID Connect
+authorization servers on its own hosts, both captured verbatim in `well-known/`:
+
+- `https://provider.troymedicare.com/.well-known/openid-configuration` — the secure provider portal
+  identity service (35 scopes, 37 claims, PKCE, device-code, introspection, revocation).
+- `https://fhir.troymedicare.com/.well-known/openid-configuration` — the OAuth surface in front of
+  the health plan's FHIR data access. No CapabilityStatement and no SMART on FHIR configuration are
+  reachable anonymously, so FHIR conformance is recorded as unverified rather than asserted.
+
+- https://troymedicare.com

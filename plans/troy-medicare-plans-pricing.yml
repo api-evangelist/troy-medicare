@@ -1,0 +1,65 @@
+name: Troy Medicare Plans & Pricing
+generated: '2026-08-30'
+method: searched
+source: https://troymedicare.com/summary-of-benefits
+description: >-
+  Troy Medicare publishes NO API access plans, tiers, quotas or developer pricing of any kind — it
+  has no developer program. plan_count is therefore 0. What the company does publish is consumer
+  pricing for its two Medicare Advantage insurance products, captured below under product_pricing
+  so the research is not lost; those are health-plan premiums, not API tiers, and are deliberately
+  kept out of plans[].
+applies_to: api-access
+plan_count: 0
+plans: []
+note: >-
+  No developer portal, no API pricing page, no self-serve API sign-up, and no "contact sales for API
+  access" path was found across troymedicare.com (sitemap.xml enumerates 55 URLs, none developer-facing,
+  probed 2026-08-30).
+product_pricing:
+  kind: medicare-advantage-insurance-products
+  contract: H4676
+  plan_year: 2026
+  currency: USD
+  source_documents:
+  - name: 2026 Troy Medicare (HMO) Summary of Benefits
+    url: https://cdn.prod.website-files.com/5d8c963eace5c7685e78fa4c/68d42692846c00cb6a08bfb5_2026%20Troy%20HMO%20SB%20Final%2008152025.pdf
+    status: 200
+    cms_id: H4676_001SB2026_M
+  - name: 2026 Troy Medicare for Dual-eligible Beneficiaries (HMO D-SNP) Summary of Benefits
+    url: https://cdn.prod.website-files.com/5d8c963eace5c7685e78fa4c/68d42ab5599bfede59044aa9_e0da13ddcfe57d2c380dc14ed97290d3_2026%20Troy%20DSNP%20SB%20Final%2008152025.pdf
+    status: 200
+    cms_id: H4676_002SB2026_M
+  products:
+  - name: Troy Medicare (HMO)
+    cms_plan_id: H4676-001
+    type: Medicare Advantage HMO (Part C + Part D)
+    monthly_premium: '$0'
+    premium_note: There is no plan premium; the member continues to pay the Medicare Part B premium and any late-enrollment penalty.
+    deductible: '$0'
+    maximum_out_of_pocket: '$3,950'
+    pcp_copay: '$0'
+    specialist_copay: '$0'
+    outpatient_hospital_copay: '$350 per visit'
+    extra_benefits:
+    - Hearing exams and hearing aids up to $825 (Hearing Care Solutions)
+    - Over-the-counter allowance up to $20/month (Solutran)
+    - Preventive dental (Liberty Dental)
+    service_area: 35 North Carolina counties
+  - name: Troy Medicare for Dual-eligible Beneficiaries (HMO D-SNP)
+    cms_plan_id: H4676-002
+    type: Dual Eligible Special Needs Plan (HMO D-SNP)
+    monthly_premium: '$0 with full Extra Help'
+    deductible: '$0'
+    maximum_out_of_pocket: '$0'
+    eligibility: Medicare Part A and B plus NC Medicaid assistance at FBDE, SLMB+, QMB+ or QMB level
+    extra_benefits:
+    - Over-the-counter allowance up to $115/month (Solutran)
+    - Hearing benefits
+    service_area: 35 North Carolina counties
+evidence:
+- url: https://troymedicare.com/summary-of-benefits
+  status: 200
+- url: https://troymedicare.com/troy-medicare-hmo
+  status: 200
+- url: https://troymedicare.com/troy-medicare-dsnp
+  status: 200

@@ -1,0 +1,132 @@
+name: Troy Medicare Conformance
+generated: '2026-08-30'
+method: probed
+source: >-
+  Live probes of Troy Medicare's own hosts (provider./fhir./selfservice./portal.troymedicare.com)
+  plus the published compliance program at https://troymedicare.com/compliance, 2026-08-30.
+description: >-
+  What Troy Medicare's public surface actually declares. Two OpenID Connect discovery documents are
+  served from its own hosts, which establishes OAuth 2.0 / OIDC conformance for the provider portal
+  and for the FHIR authorization surface. Nothing else could be verified: no CapabilityStatement,
+  no SMART on FHIR configuration, no OpenAPI, and no developer documentation are published, so the
+  health-plan domain standards (HL7 FHIR R4, US Core, CARIN Blue Button, Da Vinci PDex) that a
+  Medicare Advantage organization is required to implement under CMS-9115-F are recorded here as
+  UNVERIFIED rather than asserted.
+standards:
+- id: oauth2
+  name: OAuth 2.0 (RFC 6749)
+  conforms: true
+  evidence: >-
+    Two authorization servers serve discovery documents naming authorization_endpoint and
+    token_endpoint: https://provider.troymedicare.com/.well-known/openid-configuration (200) and
+    https://fhir.troymedicare.com/.well-known/openid-configuration (200).
+- id: oidc
+  name: OpenID Connect Core 1.0 / Discovery 1.0
+  conforms: true
+  evidence: >-
+    provider.troymedicare.com publishes a complete discovery document with issuer, jwks_uri,
+    userinfo_endpoint, id_token_signing_alg_values_supported [RS256], claims_supported (37) and
+    scopes_supported (35). fhir.troymedicare.com publishes a reduced discovery document (issuer,
+    jwks_uri, authorization_endpoint, token_endpoint, response_types_supported, subject_types_supported).
+- id: rfc7636
+  name: PKCE (RFC 7636)
+  conforms: true
+  evidence: >-
+    provider.troymedicare.com advertises code_challenge_methods_supported [plain, S256].
+    Note that `plain` is still offered alongside S256.
+- id: rfc7009
+  name: OAuth 2.0 Token Revocation (RFC 7009)
+  conforms: true
+  evidence: revocation_endpoint https://provider.troymedicare.com/connect/revocation
+- id: rfc7662
+  name: OAuth 2.0 Token Introspection (RFC 7662)
+  conforms: true
+  evidence: introspection_endpoint https://provider.troymedicare.com/connect/introspect
+- id: rfc8628
+  name: OAuth 2.0 Device Authorization Grant (RFC 8628)
+  conforms: true
+  evidence: >-
+    grant_types_supported includes urn:ietf:params:oauth:grant-type:device_code with
+    device_authorization_endpoint https://provider.troymedicare.com/connect/deviceauthorization
+- id: rfc9700
+  name: OAuth 2.0 Security Best Current Practice (RFC 9700) / OAuth 2.1
+  conforms: false
+  evidence: >-
+    provider.troymedicare.com advertises the implicit and resource-owner password grants, both
+    removed by OAuth 2.1 and discouraged by RFC 9700, plus two non-standard grants (LinkLogin,
+    Impersonation) and code_challenge_method `plain`.
+- id: rfc7591
+  name: OAuth 2.0 Dynamic Client Registration (RFC 7591)
+  conforms: false
+  evidence: >-
+    Neither discovery document advertises registration_endpoint, and no application-registration
+    page exists on troymedicare.com (sitemap.xml, 55 URLs, probed 2026-08-30).
+- id: rfc9116
+  name: security.txt (RFC 9116)
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on troymedicare.com, provider., fhir., selfservice. and portal.
+- id: smart-on-fhir
+  name: SMART App Launch (SMART on FHIR)
+  conforms: false
+  evidence: >-
+    https://fhir.troymedicare.com/.well-known/smart-configuration returns 404 and the OIDC discovery
+    document omits scopes_supported, so no SMART scope vocabulary or launch capability is advertised.
+- id: fhir-r4
+  name: HL7 FHIR R4
+  conforms: false
+  status: unverified
+  evidence: >-
+    A host named fhir.troymedicare.com serves a Troy-branded OAuth surface, but no CapabilityStatement
+    was returned by any probed path (/metadata, /R4/metadata, /fhir/R4/metadata, /api/fhir/metadata,
+    /r4/metadata, /base/metadata, /v1/fhir/metadata — all 404). FHIR release, resource set and
+    profile conformance therefore cannot be verified from public data. Recorded false = NOT VERIFIED,
+    not "does not implement".
+- id: carin-bb
+  name: CARIN Consumer Directed Payer Data Exchange (CARIN IG for Blue Button)
+  conforms: false
+  status: unverified
+  evidence: No CapabilityStatement or implementation-guide declaration is publicly reachable.
+- id: davinci-pdex-plan-net
+  name: Da Vinci PDex Plan Net (provider directory API)
+  conforms: false
+  status: unverified
+  evidence: >-
+    CMS-9115-F requires a publicly accessible, unauthenticated Provider Directory API. Troy Medicare
+    publishes a human provider-search page (https://troymedicare.com/find-a-provider) but no
+    machine-readable directory endpoint was discoverable.
+- id: hipaa
+  name: HIPAA Privacy & Security Rule
+  conforms: true
+  evidence: >-
+    Troy Medicare publishes a HIPAA privacy/security officer designation policy
+    (https://website-files-troymedicare.s3.amazonaws.com/policies/HP35_Designation_of_HIPAA_Privacy_Security_Officers)
+    and a Notice of Privacy Practices via https://troymedicare.com/privacy-policy.
+- id: cms-medicare-advantage-compliance
+  name: CMS Medicare Advantage / Part D Compliance Program (42 CFR 422/423)
+  conforms: true
+  evidence: >-
+    https://troymedicare.com/compliance (200) describes a compliance program built on the seven CMS
+    elements, and publishes the 2026 FDR Medicare Compliance Program Guide and 2026 Code of Conduct
+    as PDFs. Plan contract H4676 (HMO 001, HMO D-SNP 002).
+domain_standard:
+  market: Medicare Advantage health plan (payer)
+  expected_standards: [hl7-fhir-r4, us-core, carin-bb, davinci-pdex, davinci-pdex-plan-net, ncpdp-scripts, x12-837-835]
+  declared_in_contract: false
+  evidence: >-
+    No machine-readable contract of any kind is published, so no domain-standard signature
+    (FHIR CapabilityStatement, implementation-guide URL, X12 transaction set, NCPDP message type)
+    could be read from a contract. REWARD-ONLY check: recorded as absent, not as a failure of the
+    provider's market fit.
+evidence:
+- url: https://provider.troymedicare.com/.well-known/openid-configuration
+  status: 200
+- url: https://fhir.troymedicare.com/.well-known/openid-configuration
+  status: 200
+- url: https://fhir.troymedicare.com/.well-known/smart-configuration
+  status: 404
+- url: https://fhir.troymedicare.com/metadata
+  status: 404
+- url: https://troymedicare.com/compliance
+  status: 200
+- url: https://troymedicare.com/.well-known/security.txt
+  status: 404

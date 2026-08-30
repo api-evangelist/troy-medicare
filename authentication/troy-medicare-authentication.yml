@@ -1,0 +1,102 @@
+name: Troy Medicare Authentication
+generated: '2026-08-30'
+method: probed
+source: >-
+  https://provider.troymedicare.com/.well-known/openid-configuration (HTTP 200) and
+  https://fhir.troymedicare.com/.well-known/openid-configuration (HTTP 200), fetched 2026-08-30.
+description: >-
+  Troy Medicare publishes no public developer portal and no OpenAPI, so this profile is derived
+  entirely from the two OpenID Connect discovery documents its own hosts serve anonymously. Both
+  are OAuth 2.0 authorization servers: one in front of the secure provider portal, one in front of
+  the health plan's FHIR data surface. Neither documents client registration publicly — a
+  third-party application developer has no published path to credentials.
+schemes:
+- id: provider-portal-oidc
+  type: openIdConnect
+  host: provider.troymedicare.com
+  issuer: https://provider.troymedicare.com
+  openIdConnectUrl: https://provider.troymedicare.com/.well-known/openid-configuration
+  authorization_endpoint: https://provider.troymedicare.com/connect/authorize
+  token_endpoint: https://provider.troymedicare.com/connect/token
+  userinfo_endpoint: https://provider.troymedicare.com/connect/userinfo
+  jwks_uri: https://provider.troymedicare.com/.well-known/openid-configuration/jwks
+  introspection_endpoint: https://provider.troymedicare.com/connect/introspect
+  revocation_endpoint: https://provider.troymedicare.com/connect/revocation
+  end_session_endpoint: https://provider.troymedicare.com/connect/endsession
+  device_authorization_endpoint: https://provider.troymedicare.com/connect/deviceauthorization
+  grant_types:
+  - authorization_code
+  - client_credentials
+  - refresh_token
+  - implicit
+  - password
+  - urn:ietf:params:oauth:grant-type:device_code
+  - LinkLogin
+  - Impersonation
+  response_types: [code, token, id_token, id_token token, code id_token, code token, code id_token token]
+  response_modes: [form_post, query, fragment]
+  token_endpoint_auth_methods: [client_secret_basic, client_secret_post]
+  id_token_signing_alg_values: [RS256]
+  pkce:
+    supported: true
+    code_challenge_methods: [plain, S256]
+  logout:
+    frontchannel: true
+    backchannel: true
+  scope_count: 35
+  scopes_file: scopes/troy-medicare-scopes.yml
+  notes:
+  - >-
+    Two non-standard grant types are advertised — `LinkLogin` and `Impersonation` — alongside the
+    legacy `password` and `implicit` grants. Both legacy grants are discouraged by OAuth 2.0
+    Security BCP (RFC 9700) / OAuth 2.1.
+  - >-
+    Scope and claim names (NirvanaHealth, NhCore, nh_web_resource, nh_pcmweb_resource, DMR, M3P,
+    ClaimCore) identify the underlying platform as NirvanaHealth's Aria, which Troy Medicare
+    announced it selected in July 2023 (https://troymedicare.com/press/2023-07/troy-medicare-selects-nirvanahealth-aria-platform).
+    The authorization server is nonetheless issued and hosted under Troy Medicare's own domain and
+    issuer identifier.
+- id: fhir-oauth
+  type: oauth2
+  host: fhir.troymedicare.com
+  issuer: https://fhir.troymedicare.com
+  openIdConnectUrl: https://fhir.troymedicare.com/.well-known/openid-configuration
+  authorization_endpoint: https://fhir.troymedicare.com/oauth/authorization
+  token_endpoint: https://fhir.troymedicare.com/oauth/token
+  jwks_uri: https://fhir.troymedicare.com/.well-known/jwk
+  response_types: [code, id_token, token id_token]
+  subject_types: [pairwise, public]
+  id_token_signing_alg_values: [RS256]
+  scopes_advertised: none
+  notes:
+  - >-
+    The discovery document omits scopes_supported, grant_types_supported, userinfo_endpoint and
+    token_endpoint_auth_methods_supported, so the SMART on FHIR scope vocabulary this surface
+    accepts cannot be read anonymously.
+  - >-
+    GET /oauth/authorization without parameters 302s to the host root, which serves a
+    Troy-Medicare-branded username/password sign-in page — consistent with a member-authorization
+    (consent) front door rather than a developer console.
+  - >-
+    No /.well-known/smart-configuration is served and no CapabilityStatement was reachable at any
+    probed path, so the FHIR release, resource set and SMART capabilities are unverified.
+client_registration:
+  public_documentation: none
+  dynamic_registration: not-advertised
+  note: >-
+    Neither host advertises RFC 7591 dynamic client registration, and no application-registration
+    or developer-onboarding page was found on troymedicare.com (sitemap.xml enumerates 55 URLs,
+    none of them developer-facing).
+evidence:
+- url: https://provider.troymedicare.com/.well-known/openid-configuration
+  status: 200
+- url: https://fhir.troymedicare.com/.well-known/openid-configuration
+  status: 200
+- url: https://fhir.troymedicare.com/.well-known/jwk
+  status: 200
+- url: https://fhir.troymedicare.com/oauth/authorization
+  status: 302
+- url: https://fhir.troymedicare.com/.well-known/smart-configuration
+  status: 404
+- url: https://fhir.troymedicare.com/metadata
+  status: 404
