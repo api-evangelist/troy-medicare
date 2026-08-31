@@ -45,6 +45,11 @@ apis:
   tags:
   - Identity
   - OpenID Connect
+  - Authentication
+  - Provider Portal
+  tags_raw:
+  - Identity
+  - OpenID Connect
   - OAuth
   - Provider Portal
   properties:
@@ -66,6 +71,11 @@ apis:
   humanURL: https://fhir.troymedicare.com/
   baseURL: https://fhir.troymedicare.com
   tags:
+  - FHIR
+  - Authentication
+  - Health Data
+  - Patient Access
+  tags_raw:
   - FHIR
   - OAuth
   - Health Data
