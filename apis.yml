@@ -10,6 +10,21 @@ description: >-
   API contract; the only machine-readable surfaces it serves anonymously are two OAuth 2.0 / OpenID
   Connect authorization servers — one in front of its secure provider portal and one in front of the
   health plan's FHIR data surface at fhir.troymedicare.com.
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  - scopes
+  - rate-limits
+  - security
+  generated: '2026-09-02'
+  method: derived
 image: https://assets.website-files.com/5d8c963eace5c7685e78fa4c/5d8c9c74c9686734be86f7d2_troymedicare-logo.svg
 url: https://raw.githubusercontent.com/api-evangelist/troy-medicare/refs/heads/main/apis.yml
 x-type: company
