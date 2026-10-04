@@ -40,7 +40,6 @@ tags:
 - Care Management
 - Insurance
 - Identity
-- OpenID Connect
 apis:
 - aid: troy-medicare:troy-medicare-provider-portal-identity
   name: Troy Medicare Provider Portal Identity Service
@@ -140,3 +139,5 @@ x-enrichment:
   status: enriched
   artifacts_added: 12
   pass: local-v1
+x-tags-removed:
+- OpenID Connect
