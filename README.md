@@ -64,19 +64,110 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Troy Medicare, operated by Troy Health, Inc. of Charlotte, North Carolina, is a Medicare Advantage
-HMO and HMO D-SNP organization serving Medicare-eligible beneficiaries across 35 North Carolina
-counties under CMS contract H4676. Founded by pharmacists and software engineers, it runs a
-pharmacy-first chronic disease management model supported by its proprietary Troy.AI technology.
+Troy Medicare, operated by Troy Health, Inc. of Charlotte, North Carolina, is a Medicare Advantage HMO and HMO D-SNP organization serving Medicare-eligible beneficiaries across 35 North Carolina counties under CMS contract H4676. Founded by pharmacists and software engineers, it runs a pharmacy-first chronic disease management model that places community pharmacists at the center of care coordination, supported by its proprietary Troy.AI technology and by local provider partnerships. Troy Medicare publishes no developer program, no API reference and no machine-readable API contract; the only machine-readable surfaces it serves anonymously are two OAuth 2.0 / OpenID Connect authorization servers — one in front of its secure provider portal and one in front of the health plan's FHIR data surface at fhir.troymedicare.com.
 
-Troy Medicare publishes no developer program, no API reference and no machine-readable API contract.
-The only machine-readable surfaces it serves anonymously are two OAuth 2.0 / OpenID Connect
-authorization servers on its own hosts, both captured verbatim in `well-known/`:
+**Areas:** Health Insurance · Medicare · Medicare Advantage · Health Plans · Healthcare · Pharmacy · Care Management · Insurance · Identity
 
-- `https://provider.troymedicare.com/.well-known/openid-configuration` — the secure provider portal
-  identity service (35 scopes, 37 claims, PKCE, device-code, introspection, revocation).
-- `https://fhir.troymedicare.com/.well-known/openid-configuration` — the OAuth surface in front of
-  the health plan's FHIR data access. No CapabilityStatement and no SMART on FHIR configuration are
-  reachable anonymously, so FHIR conformance is recorded as unverified rather than asserted.
+## Troy Medicare on APIs.io
 
-- https://troymedicare.com
+Everything profiled for Troy Medicare is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/troy-medicare/](https://apis.io/providers/troy-medicare/)** — or go straight to one of the APIs or properties below.
+
+### APIs (2)
+
+- [Troy Medicare Provider Portal Identity Service](https://apis.io/apis/troy-medicare/troy-medicare-provider-portal-identity/) — The OpenID Connect authorization server behind Troy Medicare's secure provider portal, which contracted providers use for member eligibility verification,…
+- [Troy Medicare FHIR Authorization Surface](https://apis.io/apis/troy-medicare/troy-medicare-fhir/) — A Troy-Medicare-branded OAuth 2.0 authorization surface at fhir.troymedicare.com, serving an OpenID Connect discovery document and a JWKS anonymously, with…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Troy Medicare Authentication](https://apis.io/security/troy-medicare/troy-medicare-authentication/)
+- [Troy Medicare Domain Security](https://apis.io/security/troy-medicare/troy-medicare-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Troy Medicare Scopes](https://apis.io/scopes/troy-medicare/troy-medicare-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Troy Medicare Plans Pricing](https://apis.io/plans/troy-medicare/troy-medicare-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Troy Medicare Rate Limits](https://apis.io/rate-limits/troy-medicare/troy-medicare-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://troymedicare.com)
+- [Pricing](https://troymedicare.com/summary-of-benefits)
+- [Sign up](https://troymedicare.com/sign-up-for-coverage)
+- [Support](https://troymedicare.com/contact-us)
+- [Blog](https://troymedicare.com/press)
+- [Compliance](https://troymedicare.com/compliance)
+- [Terms of service](https://troymedicare.com/terms-of-use)
+- [Privacy policy](https://troymedicare.com/privacy-policy)
+
+## API Evangelist rating
+
+**Kin Score 27.5** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 19.0 |
+| Access clarity | 52.6 |
+
+**Agent readiness 13.3** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 41.2** — Insurance
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/troy-medicare/](https://apis.io/providers/troy-medicare/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Troy Medicare: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/troy-medicare/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
